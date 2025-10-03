@@ -1,0 +1,103 @@
+{
+  "nav": {
+    "asteroids": "Asteroides",
+    "comets": "Cometas",
+    "explorer": "Galería",
+    "language": {
+      "toggle": "Cambiar idioma"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Explora las Maravillas del Cosmos",
+      "subtitle": "Navega a través de asteroides, cometas y otros objetos celestes en nuestro vecindario cósmico.",
+      "cta": "Comienza a Explorar"
+    },
+    "featuredAsteroids": {
+      "title": "Asteroides Destacados"
+    },
+    "featuredComets": {
+      "title": "Cometas Famosos"
+    },
+    "viewAll": {
+      "cta": "Explorar la Galería Completa"
+    }
+  },
+  "card": {
+    "hazardous": "Peligroso",
+    "approachDate": "Fecha de Acercamiento",
+    "explore": "Explorar"
+  },
+  "explorer": {
+    "title": "Galería de Objetos Cósmicos",
+    "searchPlaceholder": "Buscar objetos...",
+    "filterByType": "Filtrar por tipo",
+    "allTypes": "Todos los tipos",
+    "potentiallyHazardous": "Potencialmente peligroso",
+    "noObjectsFound": {
+      "title": "No se encontraron objetos",
+      "subtitle": "Intenta ajustar tu búsqueda o filtros."
+    }
+  },
+  "details": {
+    "potentiallyHazardous": "Potencialmente Peligroso",
+    "tabs": {
+      "properties": "Propiedades",
+      "simulation": "Simulación"
+    },
+    "orbitalProperties": "Características Orbitales",
+    "orbitalPeriod": "Período Orbital",
+    "eccentricity": "Excentricidad",
+    "inclination": "Inclinación",
+    "semiMajorAxis": "Semieje Mayor",
+    "objectProperties": "Propiedades del Objeto",
+    "diameter": "Diámetro",
+    "closeApproach": "Acercamiento",
+    "relativeVelocity": "Velocidad Relativa",
+    "missDistance": "Distancia de Falla",
+    "simulatedTrajectory": "Trayectoria Simulada",
+    "simulation": {
+      "eccentricity": "Excentricidad",
+      "eccentricityHint": "Controla qué tan alargada es la órbita.",
+      "speed": "Velocidad de Simulación",
+      "speedHint": "Ajusta la velocidad del objeto en la simulación."
+    }
+  },
+  "ai": {
+    "explainer": {
+      "title": "Explicación con IA",
+      "button": "Explicar",
+      "loading": "Generando...",
+      "dialogTitle": "Explicación de"
+    },
+    "hypothetical": {
+      "title": "Escenarios Hipotéticos",
+      "label": "¿Qué pasaría si...?",
+      "placeholder": "Ej: ...su órbita fuera el doble de excéntrica?",
+      "button": "Evaluar Escenario",
+      "loading": "Evaluando...",
+      "dialogTitle": "Evaluación del Escenario Hipotético"
+    }
+  },
+  "simulation": {
+    "period": "Periodo Sim.",
+    "eccentricity": "Excentricidad"
+  },
+  "toast": {
+    "error": {
+      "title": "Error",
+      "defaultAi": "No se pudo generar la explicación.",
+      "scenarioRequired": "Por favor, escribe un escenario hipotético.",
+      "scenarioFailed": "No se pudo evaluar el escenario."
+    }
+  },
+  "types": {
+    "Asteroid": "Asteroide",
+    "Comet": "Cometa",
+    "Dwarf Planet": "Planeta Enano",
+    "Meteoroid": "Meteoroide"
+  },
+  "common": {
+    "close": "Cerrar"
+  }
+}

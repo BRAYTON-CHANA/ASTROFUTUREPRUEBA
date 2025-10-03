@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 232 75% 13%;
+    --foreground: 0 0% 98%;
+    --card: 236 64% 20%;
+    --card-foreground: 0 0% 98%;
+    --popover: 236 64% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 187 100% 42%;
+    --primary-foreground: 232 75% 13%;
+    --secondary: 236 64% 30%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 236 64% 25%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 187 100% 50%;
+    --accent-foreground: 232 75% 13%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 236 64% 25%;
+    --input: 236 64% 25%;
+    --ring: 187 100% 42%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 232 75% 13%;
+    --foreground: 210 40% 98%;
+    --card: 236 64% 20%;
+    --card-foreground: 210 40% 98%;
+    --popover: 236 64% 15%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 187 100% 42%;
+    --primary-foreground: 232 75% 13%;
+    --secondary: 236 64% 30%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 236 64% 25%;
+    --muted-foreground: 210 40% 70%;
+    --accent: 187 100% 50%;
+    --accent-foreground: 232 75% 13%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 236 64% 25%;
+    --input: 236 64% 25%;
+    --ring: 187 100% 42%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .stars {
+    background-image:
+      radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 50px 160px, #ddd, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 10px 190px, #eee, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 70px 110px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 180px 50px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: animate-stars 50s linear infinite;
+    opacity: 0.7;
+  }
+  
+  .stars-2 {
+    background-image:
+      radial-gradient(1px 1px at 10px 20px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 30px 90px, #ddd, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 120px 140px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 170px 180px, #ddd, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 60px 250px, #eee, rgba(0,0,a,0)),
+      radial-gradient(2px 2px at 220px 220px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 280px 40px, #ddd, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    animation: animate-stars-2 100s linear infinite;
+    opacity: 0.5;
+  }
+  
+  .stars-3 {
+    background-image:
+      radial-gradient(2px 2px at 5px 5px, #fff, rgba(0,0,a,0)),
+      radial-gradient(2px 2px at 150px 150px, #ddd, rgba(0,0,0,0)),
+      radial-gradient(3px 3px at 350px 350px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 250px 50px, #eee, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 400px 400px;
+    animation: animate-stars-3 150s linear infinite;
+    opacity: 0.3;
+  }
+}

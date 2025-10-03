@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "asteroid-1",
+      "description": "A large, cratered asteroid drifting in the blackness of space.",
+      "imageUrl": "https://images.unsplash.com/photo-1707058665507-765a1575e7a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhc3Rlcm9pZCUyMHNwYWNlfGVufDB8fHx8MTc1OTQ0OTYyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "asteroid space"
+    },
+    {
+      "id": "comet-1",
+      "description": "A bright comet with a long, glowing tail streaking across the stars.",
+      "imageUrl": "https://images.unsplash.com/photo-1594270027562-c3c194953212?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21ldCUyMHRhaWx8ZW58MHx8fHwxNzU5NDQ5NjIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "comet tail"
+    },
+    {
+      "id": "dwarf-planet-1",
+      "description": "A small, icy dwarf planet in the outer reaches of a solar system.",
+      "imageUrl": "https://images.unsplash.com/photo-1614314107768-6018061b5b72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkd2FyZiUyMHBsYW5ldHxlbnwwfHx8fDE3NTk0NDk2MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dwarf planet"
+    },
+    {
+      "id": "asteroid-2",
+      "description": "A fast-moving asteroid, a blur against a field of distant galaxies.",
+      "imageUrl": "https://images.unsplash.com/photo-1708257105841-a761d206bd5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhc3Rlcm9pZCUyMGdhbGF4eXxlbnwwfHx8fDE3NTk0NDk2MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "asteroid galaxy"
+    },
+    {
+      "id": "meteoroid-1",
+      "description": "A small, rocky meteoroid tumbling through space.",
+      "imageUrl": "https://images.unsplash.com/photo-1634936693572-6a923d21cbc4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtZXRlb3JvaWQlMjByb2NrfGVufDB8fHx8MTc1OTQ0OTYyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "meteoroid rock"
+    },
+    {
+      "id": "comet-2",
+      "description": "A stunning view of a comet approaching a sun, its tail illuminated.",
+      "imageUrl": "https://images.unsplash.com/photo-1595810297902-724d103699e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb21ldCUyMHN1bnxlbnwwfHx8fDE3NTk0NDk2MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "comet sun"
+    }
+  ]
+}
