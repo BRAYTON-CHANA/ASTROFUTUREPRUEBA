@@ -11,14 +11,19 @@ interface NeoPaginationProps {
 
 export function NeoPagination({ onPrev, onNext, elementCount }: NeoPaginationProps) {
   return (
-    <div className="flex items-center justify-between mt-4">
-      <Button onClick={onPrev}>
-        <ArrowLeft className="mr-2 h-4 w-4" /> Previous Day
-      </Button>
-      <div className="text-sm font-medium">Element Count: {elementCount}</div>
-      <Button onClick={onNext}>
-        Next Day <ArrowRight className="ml-2 h-4 w-4" />
-      </Button>
+    <div className="flex items-center justify-between mt-4 p-2 rounded-lg bg-card/50">
+      <div className="flex items-center gap-2">
+        <Button onClick={onPrev} variant="outline" size="icon" aria-label="Previous Day">
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <Button onClick={onNext} variant="outline" size="icon" aria-label="Next Day">
+          <ArrowRight className="h-4 w-4" />
+        </Button>
+      </div>
+      <div className="text-sm font-medium">
+        <span className="text-muted-foreground mr-2">Asteroids found:</span>
+        <span className="font-bold text-lg">{elementCount}</span>
+      </div>
     </div>
   );
 }

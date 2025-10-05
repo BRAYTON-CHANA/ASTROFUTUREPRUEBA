@@ -1,15 +1,16 @@
 'use client';
 
 import { NEOObject } from '@/lib/types';
-import { NeoCard } from './neo-card';
+import { NeoSummaryCard } from './neo-summary-card';
 
 interface NeoDataViewerProps {
   data: NEOObject[] | null;
   loading: boolean;
   error: string | null;
+  onViewDetails: (neo: NEOObject) => void;
 }
 
-export function NeoDataViewer({ data, loading, error }: NeoDataViewerProps) {
+export function NeoDataViewer({ data, loading, error, onViewDetails }: NeoDataViewerProps) {
   if (loading) {
     return <p className="text-center mt-8">Loading...</p>;
   }
@@ -23,9 +24,9 @@ export function NeoDataViewer({ data, loading, error }: NeoDataViewerProps) {
   }
 
   return (
-    <div className="mt-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
       {data.map(neo => (
-        <NeoCard key={neo.id} neo={neo} />
+        <NeoSummaryCard key={neo.id} neo={neo} onViewDetails={onViewDetails} />
       ))}
     </div>
   );

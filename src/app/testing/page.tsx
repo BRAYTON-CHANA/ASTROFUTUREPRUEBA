@@ -6,6 +6,7 @@ import { format, subDays, addDays } from 'date-fns';
 import { DatePicker } from '@/components/testing-components/date-picker';
 import { NeoDataViewer } from '@/components/testing-components/neo-data-viewer';
 import { NeoPagination } from '@/components/testing-components/neo-pagination';
+import { NeoDetailSheet } from '@/components/testing-components/neo-detail-sheet';
 import { NEOObject } from '@/lib/types';
 
 const TestingPage = () => {
@@ -14,6 +15,8 @@ const TestingPage = () => {
   const [elementCount, setElementCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedNeo, setSelectedNeo] = useState<NEOObject | null>(null);
+  const [isSheetOpen, setSheetOpen] = useState(false);
 
   const getNeoData = useCallback(async (selectedDate: Date) => {
     setLoading(true);
@@ -53,20 +56,34 @@ const TestingPage = () => {
     setDate(prevDate => addDays(prevDate, 1));
   };
 
+  const handleViewDetails = (neo: NEOObject) => {
+    setSelectedNeo(neo);
+    setSheetOpen(true);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-4">Testing Page</h1>
-      <p>This is a page for testing purposes.</p>
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Select a Date</h2>
-        <DatePicker date={date} setDate={setDate} />
+      <h1 className="text-4xl font-bold mb-4">Explorador de Asteroides</h1>
+      <p className="text-lg text-muted-foreground">Explora los Objetos Cercanos a la Tierra (NEOs) por fecha.</p>
+      <div className="mt-8 p-6 bg-card border rounded-lg shadow-sm">
+        <h2 className="text-2xl font-bold mb-4">Selecciona una Fecha</h2>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+            <DatePicker date={date} setDate={setDate} />
+            <div className="flex-1 w-full">
+                <NeoPagination
+                    onPrev={handlePrev}
+                    onNext={handleNext}
+                    elementCount={elementCount}
+                />
+            </div>
+        </div>
       </div>
-      <NeoPagination
-        onPrev={handlePrev}
-        onNext={handleNext}
-        elementCount={elementCount}
+      <NeoDataViewer data={neoData} loading={loading} error={error} onViewDetails={handleViewDetails} />
+      <NeoDetailSheet 
+        neo={selectedNeo} 
+        isOpen={isSheetOpen} 
+        onOpenChange={setSheetOpen} 
       />
-      <NeoDataViewer data={neoData} loading={loading} error={error} />
     </div>
   );
 };

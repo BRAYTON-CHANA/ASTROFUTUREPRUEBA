@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { NEOObject } from '@/lib/types';
 import {
   Card,
@@ -26,8 +25,6 @@ interface NeoCardProps {
 }
 
 export function NeoCard({ neo }: NeoCardProps) {
-  const historicalLink = `/historico?url=${encodeURIComponent(neo.links.self)}`;
-
   return (
     <Card className="mb-6 shadow-lg">
       <CardHeader>
@@ -154,13 +151,10 @@ export function NeoCard({ neo }: NeoCardProps) {
         )}
       </CardContent>
 
-      <CardFooter className="flex justify-between items-center">
+      <CardFooter>
         <a href={neo.nasa_jpl_url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
           Ver en el sitio web de JPL
         </a>
-        <Link href={historicalLink} className="text-primary hover:underline">
-          Ver Historial
-        </Link>
       </CardFooter>
     </Card>
   );
