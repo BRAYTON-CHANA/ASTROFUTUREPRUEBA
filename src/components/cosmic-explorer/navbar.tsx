@@ -40,6 +40,9 @@ export function Navbar() {
               <Link href="/explorer" className="text-foreground hover:text-primary transition-colors">
                 {t('nav.explorer')}
               </Link>
+              <Link href="/testing" className="text-foreground hover:text-primary transition-colors">
+                Testing
+              </Link>
             </nav>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -74,6 +77,9 @@ export function Navbar() {
                   </Link>
                   <Link href="/explorer" className="text-foreground hover:text-primary transition-colors">
                     {t('nav.explorer')}
+                  </Link>
+                  <Link href="/testing" className="text-foreground hover:text-primary transition-colors">
+                    Testing
                   </Link>
                 </nav>
               </SheetContent>

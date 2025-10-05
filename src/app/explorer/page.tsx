@@ -1,8 +1,23 @@
+"use client";
+
+import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { MainView } from '@/components/cosmic-explorer/main-view';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { ImagePlaceholder } from '@/lib/placeholder-images';
 import type { SpaceObject } from '@/lib/types';
-import { format, subDays, startOfDay, endOfDay } from 'date-fns';
+import { format, parseISO, startOfDay } from 'date-fns';
+import { Calendar as CalendarIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Skeleton } from '@/components/ui/skeleton';
 
 function getFallbackData(): SpaceObject[] {
   const imageMap = new Map<string, ImagePlaceholder>(PlaceHolderImages.map((img) => [img.id, img]));
@@ -57,37 +72,52 @@ function getFallbackData(): SpaceObject[] {
   return [...fallbackObjects, ...fallbackObjects.map(o => ({...o, id: `${o.id}-2`})), ...fallbackObjects.map(o => ({...o, id: `${o.id}-3`}))];
 }
 
-
-async function getNeoData(): Promise<SpaceObject[]> {
-  const apiKey = process.env.NASA_API_KEY || 'DEMO_KEY';
-  const today = new Date();
-  const startDate = format(subDays(startOfDay(today), 7), 'yyyy-MM-dd');
-  const endDate = format(endOfDay(today), 'yyyy-MM-dd');
+export default function ExplorerPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   
-  const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`;
+  const focusedObjectId = searchParams.get('focus');
+  const dateParam = searchParams.get('date');
 
-  try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) {
-      console.error(`Error fetching from NASA API: ${res.status} ${res.statusText}. Falling back to sample data.`);
-      return getFallbackData();
+  const [selectedDate, setSelectedDate] = useState<Date>(dateParam ? parseISO(dateParam) : startOfDay(new Date()));
+  const [spaceObjects, setSpaceObjects] = useState<SpaceObject[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleDateChange = (date: Date | undefined) => {
+    if (date) {
+      setSelectedDate(startOfDay(date));
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      newSearchParams.set('date', format(date, 'yyyy-MM-dd'));
+      router.push(`?${newSearchParams.toString()}`);
     }
-    const data = await res.json();
-    const imageMap = new Map<string, ImagePlaceholder>(PlaceHolderImages.map((img) => [img.id, img]));
-    const fallbackData = getFallbackData();
-    const fallbackOrbit = fallbackData[0].orbit;
+  };
 
-    const spaceObjects: SpaceObject[] = [];
-    if (data.near_earth_objects) {
-      Object.keys(data.near_earth_objects).forEach(date => {
-        data.near_earth_objects[date].forEach((neo: any) => {
+  const getNeoData = useCallback(async (date: Date): Promise<SpaceObject[]> => {
+    const apiKey = process.env.NEXT_PUBLIC_NASA_API_KEY || 'DEMO_KEY';
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    
+    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${formattedDate}&end_date=${formattedDate}&detailed=true&api_key=${apiKey}`;
+
+    try {
+      const res = await fetch(url, { next: { revalidate: 3600 } });
+      if (!res.ok) {
+        console.error(`Error fetching from NASA API: ${res.status} ${res.statusText}. Falling back to sample data.`);
+        return getFallbackData();
+      }
+      const data = await res.json();
+      const imageMap = new Map<string, ImagePlaceholder>(PlaceHolderImages.map((img) => [img.id, img]));
+      const fallbackData = getFallbackData();
+      const fallbackOrbit = fallbackData[0].orbit;
+
+      const newSpaceObjects: SpaceObject[] = [];
+      if (data.near_earth_objects && data.near_earth_objects[formattedDate]) {
+        data.near_earth_objects[formattedDate].forEach((neo: any) => {
           const approachData = neo.close_approach_data[0];
           const diameter = neo.estimated_diameter.kilometers;
           
           const isComet = neo.is_sentry_object || (neo.name && (neo.name.includes('P/') || neo.name.includes('C/')));
           let type: SpaceObject['type'] = isComet ? 'Comet' : 'Asteroid';
 
-          // For this example, let's diversify the types a bit for UI purposes
           if (neo.id % 5 === 0) type = 'Meteoroid';
           else if (neo.id % 10 === 0) type = 'Dwarf Planet';
           
@@ -110,8 +140,7 @@ async function getNeoData(): Promise<SpaceObject[]> {
             orbital_period_days: parseFloat(neo.orbital_data.orbital_period),
           } : fallbackOrbit;
 
-
-          spaceObjects.push({
+          newSpaceObjects.push({
             id: neo.id,
             name: neo.name,
             type: type,
@@ -127,32 +156,68 @@ async function getNeoData(): Promise<SpaceObject[]> {
             description: imageData.description,
           });
         });
-      });
-    }
+      }
 
-    if (spaceObjects.length === 0) {
-      console.warn('NASA API returned no objects. Falling back to sample data.');
+      if (newSpaceObjects.length === 0) {
+        console.warn('NASA API returned no objects for this date. Falling back to sample data.');
+        return getFallbackData();
+      }
+      
+      return newSpaceObjects;
+    } catch (error) {
+      console.error('Failed to fetch and process NEO data. Falling back to sample data:', error);
       return getFallbackData();
     }
-    
-    return spaceObjects;
-  } catch (error) {
-    console.error('Failed to fetch and process NEO data. Falling back to sample data:', error);
-    return getFallbackData();
-  }
-}
+  }, []);
 
-// This is a server component, so we can do data fetching here.
-export default async function ExplorerPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-  const objectsWithImages = await getNeoData();
-  const focusedObjectId = searchParams?.focus;
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const data = await getNeoData(selectedDate);
+      setSpaceObjects(data);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [selectedDate, getNeoData]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <MainView 
-        initialObjects={objectsWithImages} 
-        focusedObjectId={typeof focusedObjectId === 'string' ? focusedObjectId : undefined} 
-      />
+      <header className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <h1 className="text-xl font-bold">Cosmic Explorer</h1>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-[280px] justify-start text-left font-normal",
+                !selectedDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="w-4 h-4 mr-2" />
+              {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={handleDateChange}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      </header>
+      {isLoading ? (
+        <div className="p-4">
+          <Skeleton className="w-full h-24 mb-4" />
+          <Skeleton className="w-full h-96" />
+        </div>
+      ) : (
+        <MainView 
+          initialObjects={spaceObjects} 
+          focusedObjectId={typeof focusedObjectId === 'string' ? focusedObjectId : undefined} 
+        />
+      )}
     </div>
   );
 }

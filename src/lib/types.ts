@@ -1,23 +1,104 @@
 import type { ImagePlaceholder } from './placeholder-images';
 
-export type SpaceObject = {
-  id: string;
-  name: string;
-  type: 'Asteroid' | 'Comet' | 'Dwarf Planet' | 'Meteoroid';
-  diameter_km: number;
-  is_potentially_hazardous: boolean;
-  close_approach_date: string;
-  relative_velocity_kps: string;
-  miss_distance_au: string;
-  orbit: {
-    semi_major_axis_au: number;
-    eccentricity: number;
-    inclination_deg: number;
-    orbital_period_days: number;
+export type NASAFeedResponse = {
+  links: PaginationLinks;
+  element_count: number;
+  near_earth_objects: {
+    [date: string]: NEOObject[];
   };
-  image_id: string;
-  // Properties from ImagePlaceholder
-  imageUrl: string;
-  imageHint: string;
-  description: string;
+};
+
+export type PaginationLinks = {
+  next: string;
+  prev: string;
+  self: string;
+};
+
+export type NEOObject = {
+  links: {
+    self: string;
+  };
+  id: string;
+  neo_reference_id: string;
+  name: string;
+  nasa_jpl_url: string;
+  absolute_magnitude_h: number;
+  estimated_diameter: EstimatedDiameter;
+  is_potentially_hazardous_asteroid: boolean;
+  close_approach_data: CloseApproachData[];
+  orbital_data?: OrbitalData;
+  is_sentry_object: boolean;
+};
+
+export type EstimatedDiameter = {
+  kilometers: DiameterRange;
+  meters: DiameterRange;
+  miles: DiameterRange;
+  feet: DiameterRange;
+};
+
+export type DiameterRange = {
+  estimated_diameter_min: number;
+  estimated_diameter_max: number;
+};
+
+export type CloseApproachData = {
+  close_approach_date: string;
+  close_approach_date_full: string;
+  epoch_date_close_approach: number;
+  relative_velocity: RelativeVelocity;
+  miss_distance: MissDistance;
+  orbiting_body: string;
+};
+
+export type RelativeVelocity = {
+  kilometers_per_second: string;
+  kilometers_per_hour: string;
+  miles_per_hour: string;
+};
+
+export type MissDistance = {
+  astronomical: string;
+  lunar: string;
+  kilometers: string;
+  miles: string;
+};
+
+export type OrbitClass = {
+  orbit_class_type: string;
+  orbit_class_description: string;
+  orbit_class_range: string;
+};
+
+export type OrbitalData = {
+  orbit_id: string;
+  orbit_determination_date: string;
+  first_observation_date: string;
+  last_observation_date: string;
+  data_arc_in_days: number;
+  observations_used: number;
+  orbit_uncertainty: string;
+  minimum_orbit_intersection: string;
+  jupiter_tisserand_invariant: string;
+  epoch_osculation: string;
+  eccentricity: string;
+  semi_major_axis: string;
+  inclination: string;
+  ascending_node_longitude: string;
+  orbital_period: string;
+  perihelion_distance: string;
+  perihelion_argument: string;
+  aphelion_distance: string;
+  perihelion_time: string;
+  mean_anomaly: string;
+  mean_motion: string;
+  equinox: string;
+  orbit_class: OrbitClass;
+};
+
+export type NASAFeedParams = {
+  start_date: string;
+  end_date: string;
+  detailed?: boolean;
+  api_key: string;
 };
