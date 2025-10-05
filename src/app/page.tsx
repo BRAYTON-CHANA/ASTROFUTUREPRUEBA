@@ -32,7 +32,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold tracking-tight text-center">{t('home.featuredComets.title')}</h2>
             
             <div className="text-center pt-8">
-              <Link href="/testing">
+              <Link href="/explorer">
                 <Button size="lg" variant="outline">
                   Ir al Explorador de Asteroides <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
