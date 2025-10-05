@@ -4,17 +4,17 @@ import { CloseApproachData, NEOObject } from '@/lib/types';
 import React, { useMemo } from 'react';
 
 const PLANET_DATA: { [key: string]: { radius: number; color: string; size: number; period: number } } = {
-  Mercury: { radius: 60, color: '#a8a29e', size: 12, period: 0.24 },
-  Venus:   { radius: 110, color: '#f59e0b', size: 18, period: 0.62 },
-  Earth:   { radius: 150, color: '#3b82f6', size: 18, period: 1 },
-  Mars:    { radius: 200, color: '#ef4444', size: 14, period: 1.88 },
-  Jupiter: { radius: 280, color: '#f97316', size: 48, period: 11.86 },
-  Saturn:  { radius: 360, color: '#eab308', size: 42, period: 29.46 },
-  Uranus:  { radius: 420, color: '#60a5fa', size: 30, period: 84.01 },
-  Neptune: { radius: 470, color: '#8b5cf6', size: 30, period: 164.8 },
+  Mercury: { radius: 51, color: '#a8a29e', size: 10, period: 0.24 },
+  Venus:   { radius: 94, color: '#f59e0b', size: 15, period: 0.62 },
+  Earth:   { radius: 128, color: '#3b82f6', size: 15, period: 1 },
+  Mars:    { radius: 170, color: '#ef4444', size: 12, period: 1.88 },
+  Jupiter: { radius: 238, color: '#f97316', size: 41, period: 11.86 },
+  Saturn:  { radius: 306, color: '#eab308', size: 36, period: 29.46 },
+  Uranus:  { radius: 357, color: '#60a5fa', size: 26, period: 84.01 },
+  Neptune: { radius: 400, color: '#8b5cf6', size: 26, period: 164.8 },
 };
 
-const ANIMATION_SPEED = 0.05;
+const ANIMATION_SPEED = 0.025;
 
 interface SolarSystemPlotProps {
   approaches: CloseApproachData[];
@@ -82,7 +82,7 @@ export function SolarSystemPlot({ approaches, neoData, selectedApproachEpoch, on
 
   return (
     <div className="relative w-full h-full flex items-center justify-center bg-background rounded-lg">
-      <div className="w-12 h-12 bg-yellow-400 rounded-full z-20 shadow-2xl shadow-yellow-400/50">
+      <div className="w-11 h-11 bg-yellow-400 rounded-full z-20 shadow-2xl shadow-yellow-400/50">
         <title>Sol</title>
       </div>
 
@@ -104,7 +104,7 @@ export function SolarSystemPlot({ approaches, neoData, selectedApproachEpoch, on
               width: `${size}px`,
               height: `${size}px`,
               backgroundColor: color,
-              boxShadow: `0 0 20px 5px ${color}`,
+              boxShadow: `0 0 18px 5px ${color}`,
               transform: `translate(${planetX}px, ${planetY}px)`
             }}>
               <title>Planeta: {planetName}</title>
@@ -128,11 +128,11 @@ export function SolarSystemPlot({ approaches, neoData, selectedApproachEpoch, on
                   onClick={() => onApproachSelect(approach.epoch_date_close_approach)}
                   className="absolute rounded-full cursor-pointer border-2 transition-all duration-300"
                   style={{
-                    width: isSelected ? '20px' : '12px',
-                    height: isSelected ? '20px' : '12px',
+                    width: isSelected ? '18px' : '10px',
+                    height: isSelected ? '18px' : '10px',
                     borderColor: isSelected ? '#ffffff' : color,
                     backgroundColor: isSelected ? '#ef4444' : '#ffffff',
-                    boxShadow: isSelected ? `0 0 20px 8px #ef4444` : 'none',
+                    boxShadow: isSelected ? `0 0 18px 7px #ef4444` : 'none',
                     transform: `translate(${x}px, ${y}px)`,
                     zIndex: isSelected ? 40 : 30,
                   }}>
